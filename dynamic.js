@@ -13,60 +13,66 @@ let weatherIcon = document.querySelector(".wheather-icon");
 
 async function checkWeather(city){
     const response=await fetch(apiUrl + city + `&appid=${apiKey}`);
-    var data=await response.json();
-    console.log(data);
 
-    document.querySelector(".city").innerHTML=data.name;
-    document.querySelector(".temp").innerHTML=Math.round(data.main.temp) + "°c";
-    document.querySelector(".humidity").innerHTML=data.main.humidity+"%";
-    document.querySelector(".wind").innerHTML=data.wind.speed +" km/h";
-
-    if(data.weather[0].main == 'Clouds'){
-        weatherIcon.src='clouds.png';
+    if(response.status == 404){
+        document.querySelector(".error").style.display="block";
+        document.querySelector(".wheather").style.display="none";
     }
+    else{
+       
+        var data=await response.json();
+        console.log(data);
 
-    else if(data.weather[0].main == 'Clear'){
-        weatherIcon.src='clear.png';
+        document.querySelector(".city").innerHTML=data.name;
+        document.querySelector(".temp").innerHTML=Math.round(data.main.temp) + "°c";
+        document.querySelector(".humidity").innerHTML=data.main.humidity+"%";
+        document.querySelector(".wind").innerHTML=data.wind.speed +" km/h";
+
+        if(data.weather[0].main == 'Clouds'){
+            weatherIcon.src='clouds.png';
+        }
+
+        else if(data.weather[0].main == 'Clear'){
+            weatherIcon.src='clear.png';
+        }
+
+        else if(data.weather[0].main == 'Drizzle'){
+            weatherIcon.src='drizzle.png';
+        }
+
+        else if(data.weather[0].main == 'Humidity'){
+            weatherIcon.src='humidity.png';
+        }
+
+        
+        else if(data.weather[0].main == 'Mist'){
+            weatherIcon.src='mist.png';
+        }
+
+        
+        else if(data.weather[0].main == 'Snow'){
+            weatherIcon.src='snow.png';
+        }
+
+        
+        else if(data.weather[0].main == 'Rain'){
+            weatherIcon.src='rain.png';
+        }
+
+        
+        else if(data.weather[0].main == 'Wind'){
+            weatherIcon.src='wind.png';
+        }
+
+        document.querySelector(".wheather").style.display='block';
+        document.querySelector(".error").style.display="none";
+        
     }
-
-    else if(data.weather[0].main == 'Drizzle'){
-        weatherIcon.src='drizzle.png';
     }
-
-    else if(data.weather[0].main == 'Humidity'){
-        weatherIcon.src='humidity.png';
-    }
-
-    
-    else if(data.weather[0].main == 'Mist'){
-        weatherIcon.src='mist.png';
-    }
-
-    
-    else if(data.weather[0].main == 'Snow'){
-        weatherIcon.src='snow.png';
-    }
-
-    
-    else if(data.weather[0].main == 'Rain'){
-        weatherIcon.src='rain.png';
-    }
-
-    
-    else if(data.weather[0].main == 'Wind'){
-        weatherIcon.src='wind.png';
-    }
-
-    document.querySelector(".wheather").style.display='block';
-
-}
-
-searchBtn.addEventListener("click",()=>{
-    checkWeather(searchBox.value);
+    searchBtn.addEventListener("click",()=>{
+        checkWeather(searchBox.value);
     wheather.style.display='block'; 
 })
-
-
 
 checkWeather();
 

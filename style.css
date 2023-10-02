@@ -99,3 +99,14 @@ body{
 .wheather{
     display: none;
 }
+
+.error{
+    text-align: left;
+    color:white;
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 550;
+    margin-left: 10px;
+    display: none;
+
+}
